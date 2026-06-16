@@ -877,7 +877,7 @@ const KEYS = {
 };
 
 const STORAGE_TO_DATA_KEY = Object.fromEntries(Object.entries(KEYS).map(([dataKey, storageKey]) => [storageKey, dataKey]));
-const REMOTE_ENABLED = GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE');
+const REMOTE_ENABLED = GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbyq1MXtfxeeVeP1b-gqLn73bP9CKj8dfsYY92kzyQ2v8rMe2qdknQaMLP0fGaPa7YS_/exec');
 
 function load(key){ try{ return JSON.parse(localStorage.getItem(key)) || null }catch{ return null } }
 function saveLocal(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
