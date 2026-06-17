@@ -261,6 +261,27 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
 .astat{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;border-top:3px solid var(--green-mid)}
 .astat-val{font-family:'DM Serif Display',serif;font-size:24px;color:var(--green-dark)}
 .astat-label{font-size:12px;color:var(--muted);margin-top:2px}
+.sync-box{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--green-pale);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:1rem;flex-wrap:wrap}
+.sync-status{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--green-dark)}
+.sync-status::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--gold);display:inline-block}
+.sync-status.online::before{background:var(--green-mid)}
+.sync-status.error::before{background:var(--red)}
+.sync-actions{display:flex;gap:8px;flex-wrap:wrap}
+.market-live{background:var(--green-pale);border:1px solid var(--border);border-radius:10px;padding:1.1rem;margin-bottom:12px}
+.market-live-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.market-live-head h3{font-size:14px;font-weight:600;color:var(--green-dark)}
+.market-live-head a{font-size:12.5px;color:var(--green);font-weight:600}
+.market-live-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}
+.market-live-stat{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px}
+.market-live-stat span{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block;margin-bottom:2px}
+.market-live-stat strong{font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:var(--green-dark)}
+.market-mini-table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;font-size:12.5px}
+.market-mini-table th,.market-mini-table td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left}
+.market-mini-table th{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:#fff}
+.market-mini-table td:last-child,.market-mini-table th:last-child{text-align:right;font-weight:600;color:var(--green-dark)}
+.trend-up{color:var(--green);font-weight:700}
+.trend-down{color:var(--red);font-weight:700}
+.trend-same{color:var(--muted);font-weight:700}
 
 @media(max-width:900px){
   .nav-links{display:none}
@@ -272,6 +293,7 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
   .admin-sidebar{width:200px}
   .admin-stats{grid-template-columns:1fr 1fr}
   .chart-row{grid-template-columns:1fr}
+  .market-live-grid{grid-template-columns:1fr 1fr}
   .hero{grid-template-columns:1fr}
   .hero-logo-bg{display:none}
 }
@@ -296,7 +318,7 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
 <div id="view-login" class="view active">
   <div class="login-box">
     <div class="login-logo">
-      <img src="/Users/junmier/Downloads/APOO_Office_Logo-removebg-preview.png" style="width:90px;height:90px;object-fit:contain">
+      <img src="APOO_Office_Logo-removebg-preview.png" style="width:90px;height:90px;object-fit:contain">
     </div>
     <h2>APOO Admin Panel</h2>
     <p>Agricultural Productivity Operations Office<br>Cagayan de Oro City</p>
@@ -321,9 +343,9 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
   <!-- NAV -->
   <nav id="pub-nav">
     <div class="nav-logos">
-      <img src="/Users/junmier/Downloads/APOO_Office_Logo-removebg-preview.png" alt="APOO Logo" style="height:48px;width:auto;object-fit:contain">
+      <img src="APOO_Office_Logo-removebg-preview.png" alt="APOO Logo" style="height:48px;width:auto;object-fit:contain">
       <div class="nav-div"></div>
-      <img src="/Users/junmier/Downloads/CDO_FULL_LOGO.png" alt="CDO Logo" style="height:42px;width:auto;object-fit:contain">
+      <img src="CDO_FULL_LOGO.png" alt="CDO Logo" style="height:42px;width:auto;object-fit:contain">
       <div class="nav-div"></div>
       <div class="nav-org">
         <strong id="pub-org-name">Agricultural Productivity Operations Office</strong>
@@ -362,7 +384,7 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
       </div>
     </div>
     <div class="hero-logo-bg">
-      <img src="/Users/junmier/Downloads/APOO_Office_Logo-removebg-preview.png" alt="APOO" style="height:180px;width:auto;filter:brightness(10)">
+      <img src="APOO_Office_Logo-removebg-preview.png" alt="APOO" style="height:180px;width:auto;filter:brightness(10)">
     </div>
   </div>
 
@@ -441,19 +463,30 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
       <div class="m-card"><div class="m-label">Avg. Farm Gate Price</div><div class="m-val" id="dash-price">—</div><div class="m-trend" id="dash-price-trend"></div></div>
       <div class="m-card"><div class="m-label">Active Market Outlets</div><div class="m-val" id="dash-markets">—</div><div class="m-trend" id="dash-mkt-trend"></div></div>
     </div>
+    <div class="market-live" id="market-live-card">
+      <div class="market-live-head">
+        <h3><i class="ti ti-building-store" style="font-size:15px;color:var(--green-mid)"></i> Market Monitoring Summary</h3>
+        <a href="https://ronron98765.github.io/PriceMonitoring/" target="_blank" rel="noopener">Open full price monitor</a>
+      </div>
+      <div class="market-live-grid">
+        <div class="market-live-stat"><span>Latest Date</span><strong id="market-live-date">—</strong></div>
+        <div class="market-live-stat"><span>Markets</span><strong id="market-live-markets">—</strong></div>
+        <div class="market-live-stat"><span>Commodities</span><strong id="market-live-commodities">—</strong></div>
+        <div class="market-live-stat"><span>Avg. Prevailing</span><strong id="market-live-avg">—</strong></div>
+        <div class="market-live-stat"><span>Price Trend</span><strong id="market-live-trend">—</strong></div>
+      </div>
+      <div class="prices-table-wrap">
+        <table class="market-mini-table">
+          <thead><tr><th>Commodity</th><th>Unit</th><th>Low</th><th>High</th><th>Prevailing</th></tr></thead>
+          <tbody id="market-live-tbody"><tr><td colspan="5" style="text-align:center;color:var(--muted)">Loading market monitoring data...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
     <div class="chart-row">
       <div class="chart-box">
-        <div class="chart-title">Supply vs. Demand — Weekly Overview</div>
-        <div class="bars" id="pub-chart-bars">
-          <div class="bp"><div class="b s" style="height:65px;flex:1"></div><div class="b d" style="height:80px;flex:1"></div></div>
-          <div class="bp"><div class="b s" style="height:75px;flex:1"></div><div class="b d" style="height:70px;flex:1"></div></div>
-          <div class="bp"><div class="b s" style="height:85px;flex:1"></div><div class="b d" style="height:60px;flex:1"></div></div>
-          <div class="bp"><div class="b s" style="height:60px;flex:1"></div><div class="b d" style="height:88px;flex:1"></div></div>
-          <div class="bp"><div class="b s" style="height:78px;flex:1"></div><div class="b d" style="height:72px;flex:1"></div></div>
-          <div class="bp"><div class="b s" style="height:90px;flex:1"></div><div class="b d" style="height:80px;flex:1"></div></div>
-          <div class="bp"><div class="b s" style="height:68px;flex:1"></div><div class="b d" style="height:85px;flex:1"></div></div>
-        </div>
-        <div class="leg"><div class="li"><div class="ld" style="background:var(--green-mid)"></div>Supply</div><div class="li"><div class="ld" style="background:var(--gold)"></div>Demand</div></div>
+        <div class="chart-title">Market Price Trend — Average Prevailing Price</div>
+        <div id="market-price-trend-chart" style="flex:1;min-height:115px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px">Loading price trend...</div>
+        <div class="leg"><div class="li"><div class="ld" style="background:var(--green-mid)"></div>Average price bar</div><div class="li"><div class="ld" style="background:var(--gold)"></div>Trend line</div></div>
       </div>
       <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.1rem">
         <div class="chart-title">Supply &amp; Demand Summary</div>
@@ -535,7 +568,7 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
 
   <footer>
     <div class="footer-left">
-      <img src="/Users/junmier/Downloads/APOO_Office_Logo-removebg-preview.png" alt="APOO" style="height:32px;width:auto;object-fit:contain">
+      <img src="APOO_Office_Logo-removebg-preview.png" alt="APOO" style="height:32px;width:auto;object-fit:contain">
       <p>&copy; 2026 Agricultural Productivity Operations Office &middot; Cagayan de Oro City &middot; Republic of the Philippines</p>
     </div>
     <div class="footer-links">
@@ -551,7 +584,7 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
 <div id="view-admin" class="view">
   <div class="admin-sidebar">
     <div class="admin-brand">
-      <img src="/Users/junmier/Downloads/APOO_Office_Logo-removebg-preview.png" alt="APOO" style="height:38px;width:auto;object-fit:contain">
+      <img src="APOO_Office_Logo-removebg-preview.png" alt="APOO" style="height:38px;width:auto;object-fit:contain">
       <div><strong>APOO Admin</strong><span>CDO City</span></div>
     </div>
     <nav class="admin-nav">
@@ -755,7 +788,17 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
       </div>
       <div class="admin-card" style="margin-top:1rem">
         <strong style="font-size:14px;color:var(--green-dark);display:block;margin-bottom:1rem">Data Management</strong>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">All data is stored in your browser's local storage. Use the button below to reset all content to defaults.</p>
+        <div class="sync-box">
+          <div>
+            <strong style="font-size:13.5px;color:var(--green-dark);display:block">Google Sheet Connection</strong>
+            <span class="sync-status" id="sync-status">Checking connection...</span>
+          </div>
+          <div class="sync-actions">
+            <button class="btn-cancel" onclick="refreshRemoteData()"><i class="ti ti-refresh"></i> Reload Sheet Data</button>
+            <button class="btn-submit" onclick="syncAllData()"><i class="ti ti-cloud-upload"></i> Save All to Sheet</button>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Data is shared through Google Sheets when the Apps Script URL is set. This browser also keeps a backup copy in case the connection is unavailable.</p>
         <button style="background:var(--red-light);color:var(--red);border:1px solid #f7c1c1;padding:9px 18px;border-radius:7px;font-size:13.5px;font-weight:500;display:inline-flex;align-items:center;gap:7px" onclick="resetData()"><i class="ti ti-trash"></i> Reset All Data</button>
       </div>
     </div>
@@ -849,15 +892,94 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
 
 <script>
 // ============================================================
-// DATA LAYER — localStorage
+// DATA LAYER — Google Sheet + local backup
 // ============================================================
+// Paste your deployed Google Apps Script Web App URL here after creating it.
+// Example: const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfy.../exec";
+const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const PRICE_MONITOR_URL = "https://script.google.com/macros/s/AKfycbzAUccUL_j2_O7R97RbYTqLxh2gKJ_512n8pcI5aPq57zjk34YYcackIHvSXgrv9XUI/exec";
+
 const KEYS = {
   news:'apoo_news', prices:'apoo_prices', sd:'apoo_sd', maps:'apoo_maps',
   rise:'apoo_rise', about:'apoo_about', contact:'apoo_contact', pw:'apoo_pw'
 };
 
+const MARKET_NAMES = {
+  bulua:'Bulua Market', carmen:'Carmen Market', cogon:'Cogon Market',
+  puerto:'Puerto Market', other:'Other Markets'
+};
+
+const PRICE_MONITOR_ITEMS = [
+  {id:'rice_sp_imp',name:'Imported Special Rice',unit:'kg',category:'Rice'},
+  {id:'rice_pr_imp',name:'Imported Premium Rice',unit:'kg',category:'Rice'},
+  {id:'rice_wm_imp',name:'Imported Well Milled Rice',unit:'kg',category:'Rice'},
+  {id:'rice_rm_imp',name:'Imported Regular Milled Rice',unit:'kg',category:'Rice'},
+  {id:'rice_sp_loc',name:'Local Special Rice',unit:'kg',category:'Rice'},
+  {id:'rice_pr_loc',name:'Local Premium Rice',unit:'kg',category:'Rice'},
+  {id:'rice_wm_loc',name:'Local Well Milled Rice',unit:'kg',category:'Rice'},
+  {id:'rice_rm_loc',name:'Local Regular Milled Rice',unit:'kg',category:'Rice'},
+  {id:'fish_bangus',name:'Bangus',unit:'kg',category:'Fish'},
+  {id:'fish_tilapia',name:'Tilapia',unit:'kg',category:'Fish'},
+  {id:'fish_gal_loc',name:'Galunggong (Local)',unit:'kg',category:'Fish'},
+  {id:'fish_gal_imp',name:'Galunggong (Imported)',unit:'kg',category:'Fish'},
+  {id:'fish_alu',name:'Alumahan',unit:'kg',category:'Fish'},
+  {id:'meat_beef_rump',name:'Beef Rump',unit:'kg',category:'Livestock / Poultry'},
+  {id:'meat_beef_bris',name:'Beef Brisket',unit:'kg',category:'Livestock / Poultry'},
+  {id:'meat_pork_kas',name:'Pork Kasim',unit:'kg',category:'Livestock / Poultry'},
+  {id:'meat_pork_lie',name:'Pork Liempo',unit:'kg',category:'Livestock / Poultry'},
+  {id:'meat_chicken',name:'Whole Chicken',unit:'pc',category:'Livestock / Poultry'},
+  {id:'meat_egg',name:'Chicken Egg',unit:'pc',category:'Livestock / Poultry'},
+  {id:'vl_ampalaya',name:'Ampalaya',unit:'kg',category:'Vegetables'},
+  {id:'vl_sitao',name:'Sitao',unit:'kg',category:'Vegetables'},
+  {id:'vl_pechay',name:'Pechay (Native)',unit:'kg',category:'Vegetables'},
+  {id:'vl_cucumber',name:'Cucumber',unit:'kg',category:'Vegetables'},
+  {id:'vl_okra',name:'Okra',unit:'kg',category:'Vegetables'},
+  {id:'vl_squash',name:'Squash',unit:'kg',category:'Vegetables'},
+  {id:'vl_eggplant',name:'Eggplant',unit:'kg',category:'Vegetables'},
+  {id:'vl_patola',name:'Patola',unit:'kg',category:'Vegetables'},
+  {id:'vl_tomato',name:'Tomato',unit:'kg',category:'Vegetables'},
+  {id:'vh_cabbage',name:'Cabbage',unit:'kg',category:'Vegetables'},
+  {id:'vh_carrots',name:'Carrots',unit:'kg',category:'Vegetables'},
+  {id:'vh_habitc',name:'Habitchuelas',unit:'kg',category:'Vegetables'},
+  {id:'vh_potato',name:'White Potato',unit:'kg',category:'Vegetables'},
+  {id:'vh_bellp',name:'Atsal (Bell Pepper)',unit:'kg',category:'Vegetables'},
+  {id:'vh_chayote',name:'Chayote',unit:'kg',category:'Vegetables'},
+  {id:'sp_redonion',name:'Red Onion (Local)',unit:'kg',category:'Spices'},
+  {id:'sp_redonion_imp',name:'Red Onion (Imported)',unit:'kg',category:'Spices'},
+  {id:'sp_whiteonion',name:'White Onion (Local)',unit:'kg',category:'Spices'},
+  {id:'sp_whiteonion_imp',name:'White Onion (Imported)',unit:'kg',category:'Spices'},
+  {id:'sp_garlic_imp',name:'Garlic (Imported)',unit:'kg',category:'Spices'},
+  {id:'sp_garlic_nat',name:'Garlic (Native)',unit:'kg',category:'Spices'},
+  {id:'sp_ginger',name:'Ginger',unit:'kg',category:'Spices'},
+  {id:'sp_labuyo',name:'Chilli (Labuyo)',unit:'kg',category:'Spices'},
+  {id:'sp_sili',name:'Sili (Bisaya)',unit:'kg',category:'Spices'},
+  {id:'fr_calamansi',name:'Calamansi',unit:'kg',category:'Fruits'},
+  {id:'fr_saba',name:'Banana (Saba)',unit:'kg',category:'Fruits'},
+  {id:'fr_lakatan',name:'Banana (Lakatan)',unit:'kg',category:'Fruits'},
+  {id:'fr_latundan',name:'Banana (Latundan)',unit:'kg',category:'Fruits'},
+  {id:'fr_papaya',name:'Papaya',unit:'kg',category:'Fruits'},
+  {id:'fr_mango',name:'Mango (Carabao)',unit:'kg',category:'Fruits'},
+  {id:'fr_avocado',name:'Avocado',unit:'kg',category:'Fruits'},
+  {id:'ot_sugar_ref',name:'Sugar (Refined)',unit:'kg',category:'Other'},
+  {id:'ot_sugar_wash',name:'Sugar (Washed)',unit:'kg',category:'Other'},
+  {id:'ot_sugar_brn',name:'Sugar (Brown)',unit:'kg',category:'Other'},
+  {id:'ot_oil_350',name:'Cooking Oil (Palm, 350ml)',unit:'btl',category:'Other'},
+  {id:'ot_oil_1l',name:'Cooking Oil (Palm, 1L)',unit:'btl',category:'Other'},
+  {id:'ot_corn10',name:'White Corn Grits #10',unit:'kg',category:'Other'},
+  {id:'ot_corn12',name:'White Corn Grits #12',unit:'kg',category:'Other'},
+  {id:'ot_camote',name:'Sweet Potato',unit:'kg',category:'Other'},
+  {id:'ot_cassava',name:'Cassava',unit:'kg',category:'Other'},
+  {id:'ot_gabi',name:'Taro (Gabi)',unit:'kg',category:'Other'}
+];
+
+let MARKET_SUMMARY = null;
+
+const STORAGE_TO_DATA_KEY = Object.fromEntries(Object.entries(KEYS).map(([dataKey, storageKey]) => [storageKey, dataKey]));
+const REMOTE_ENABLED = GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE');
+
 function load(key){ try{ return JSON.parse(localStorage.getItem(key)) || null }catch{ return null } }
-function save(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
+function saveLocal(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
+function deepClone(val){ return JSON.parse(JSON.stringify(val)); }
 
 const DEFAULTS = {
   news:[
@@ -880,8 +1002,119 @@ const DEFAULTS = {
   contact:{address:"APOO Building, City Hall Compound, Cagayan de Oro City, Misamis Oriental",phone:"(088) 856-0000 local 1234",email:"apoo@cdocity.gov.ph",hours:"Monday – Friday, 8:00 AM – 5:00 PM",fb:""}
 };
 
-function getData(key){ return load(key) || DEFAULTS[key]; }
+let APP_DATA = {};
+
+function buildLocalData(){
+  const data = deepClone(DEFAULTS);
+  Object.keys(KEYS).forEach(key => {
+    const localValue = load(KEYS[key]);
+    if(localValue !== null) data[key] = localValue;
+  });
+  return data;
+}
+
+function mergeRemoteData(remoteData){
+  const data = buildLocalData();
+  if(remoteData && typeof remoteData === 'object'){
+    Object.keys(KEYS).forEach(key => {
+      if(remoteData[key] !== undefined && remoteData[key] !== null && remoteData[key] !== ''){
+        data[key] = remoteData[key];
+        saveLocal(KEYS[key], remoteData[key]);
+      }
+    });
+  }
+  APP_DATA = data;
+}
+
+function getData(key){ return deepClone(APP_DATA[key] !== undefined ? APP_DATA[key] : DEFAULTS[key]); }
 function getNextId(arr){ return arr.length ? Math.max(...arr.map(x=>x.id))+1 : 1; }
+
+function save(key,val){
+  saveLocal(key, val);
+  const dataKey = STORAGE_TO_DATA_KEY[key];
+  if(dataKey){
+    APP_DATA[dataKey] = deepClone(val);
+    saveRemoteKey(dataKey, val);
+  }
+}
+
+function setSyncStatus(message, type=''){
+  const el = document.getElementById('sync-status');
+  if(!el) return;
+  el.textContent = message;
+  el.className = 'sync-status' + (type ? ' '+type : '');
+}
+
+async function loadRemoteData({silent=false} = {}){
+  mergeRemoteData(null);
+  if(!REMOTE_ENABLED){
+    setSyncStatus('Google Script URL is not set. Using local backup only.', 'error');
+    return;
+  }
+  if(!silent) setSyncStatus('Loading data from Google Sheet...');
+  try{
+    const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAll&t=${Date.now()}`, {method:'GET'});
+    const json = await res.json();
+    if(json.status !== 'success') throw new Error(json.message || 'Unable to read Google Sheet');
+    mergeRemoteData(json.data || {});
+    setSyncStatus('Connected to Google Sheet', 'online');
+  }catch(err){
+    console.error(err);
+    setSyncStatus('Could not connect. Using local backup.', 'error');
+    if(!silent) toast('Could not connect to Google Sheet. Local backup loaded.', 'error');
+  }
+}
+
+async function saveRemoteKey(dataKey, value){
+  if(!REMOTE_ENABLED) return;
+  setSyncStatus('Saving to Google Sheet...');
+  try{
+    const res = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action:'saveKey', key:dataKey, value})
+    });
+    const json = await res.json();
+    if(json.status !== 'success') throw new Error(json.message || 'Unable to save');
+    setSyncStatus('Saved to Google Sheet', 'online');
+  }catch(err){
+    console.error(err);
+    setSyncStatus('Save failed. Local backup was kept.', 'error');
+    toast('Google Sheet save failed. Local backup was kept.', 'error');
+  }
+}
+
+async function syncAllData(){
+  Object.keys(KEYS).forEach(key => saveLocal(KEYS[key], APP_DATA[key]));
+  if(!REMOTE_ENABLED){
+    setSyncStatus('Google Script URL is not set. Using local backup only.', 'error');
+    toast('Add your Google Apps Script URL first.', 'error');
+    return;
+  }
+  setSyncStatus('Saving all data to Google Sheet...');
+  try{
+    const res = await fetch(GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action:'saveAll', data:APP_DATA})
+    });
+    const json = await res.json();
+    if(json.status !== 'success') throw new Error(json.message || 'Unable to save all data');
+    setSyncStatus('All data saved to Google Sheet', 'online');
+    toast('All data saved to Google Sheet');
+  }catch(err){
+    console.error(err);
+    setSyncStatus('Save failed. Local backup was kept.', 'error');
+    toast('Google Sheet save failed. Local backup was kept.', 'error');
+  }
+}
+
+async function refreshRemoteData(){
+  await loadRemoteData();
+  renderAdmin();
+  renderPublic();
+  toast('Latest Google Sheet data loaded');
+}
 
 // ============================================================
 // UTILS
@@ -939,7 +1172,7 @@ function showAdmin(){ showView('admin'); renderAdmin(); }
 function doLogin(){
   const u = document.getElementById('login-user').value.trim();
   const p = document.getElementById('login-pass').value;
-  const storedPw = load(KEYS.pw) || 'apoo2026';
+  const storedPw = getData('pw') || 'apoo2026';
   if(u === 'admin' && p === storedPw){
     document.getElementById('login-err').style.display = 'none';
     showAdmin();
@@ -958,7 +1191,7 @@ function changePassword(){
   const cur = document.getElementById('pw-current').value;
   const nw  = document.getElementById('pw-new').value;
   const cn  = document.getElementById('pw-confirm').value;
-  const stored = load(KEYS.pw) || 'apoo2026';
+  const stored = getData('pw') || 'apoo2026';
   if(cur !== stored){ toast('Current password is incorrect','error'); return; }
   if(!nw){ toast('New password cannot be empty','error'); return; }
   if(nw !== cn){ toast('Passwords do not match','error'); return; }
@@ -968,8 +1201,10 @@ function changePassword(){
 }
 
 function resetData(){
-  if(!confirm('This will delete all your entered content and reset to defaults. Are you sure?')) return;
+  if(!confirm('This will reset all content to defaults on this device and in the connected Google Sheet. Are you sure?')) return;
   Object.values(KEYS).forEach(k => localStorage.removeItem(k));
+  APP_DATA = deepClone(DEFAULTS);
+  syncAllData();
   renderAdmin();
   renderPublic();
   toast('All data reset to defaults');
@@ -1379,6 +1614,7 @@ function renderPublic(){
   renderPublicNews();
   renderPublicPrices();
   renderPublicDash();
+  renderMarketMonitorSummary();
   renderPublicRISE();
   renderPublicContact();
   renderTicker();
@@ -1485,6 +1721,226 @@ function renderPublicDash(){
   if(sumEl) sumEl.textContent = sd.summary || 'No summary data available.';
 }
 
+function money(value){
+  const num = Number(value);
+  if(!Number.isFinite(num)) return '—';
+  return '&#8369;' + num.toFixed(num % 1 ? 2 : 0);
+}
+
+function marketDateLabel(dateValue){
+  if(!dateValue) return '—';
+  return formatDate(dateValue);
+}
+
+async function loadMarketRecords(){
+  if(!PRICE_MONITOR_URL) return [];
+  try{
+    const res = await fetch(PRICE_MONITOR_URL + '?action=getRecords&ts=' + Date.now());
+    const json = await res.json();
+    if(json.status !== 'success') throw new Error(json.message || 'Unable to load market monitoring records');
+    return Array.isArray(json.records) ? json.records : [];
+  }catch(err){
+    console.error(err);
+    return [];
+  }
+}
+
+function summarizeMarketRecords(records){
+  const usable = records.filter(r => r && r.date && r.data);
+  if(!usable.length) return null;
+
+  const latestDate = usable.reduce((latest, r) => r.date > latest ? r.date : latest, usable[0].date);
+  const latestRecords = usable.filter(r => r.date === latestDate);
+  const dates = [...new Set(usable.map(r => r.date))].sort();
+  const previousDate = dates.length > 1 ? dates[dates.length - 2] : null;
+  const markets = [...new Set(latestRecords.map(r => r.market).filter(Boolean))];
+  const itemRows = [];
+
+  PRICE_MONITOR_ITEMS.forEach(item => {
+    const prices = latestRecords
+      .map(rec => rec.data?.[item.id])
+      .filter(v => v && Number(v.pr) > 0);
+
+    if(!prices.length) return;
+
+    const lowValues = prices.map(v => Number(v.lo)).filter(Number.isFinite).filter(v => v > 0);
+    const highValues = prices.map(v => Number(v.hi)).filter(Number.isFinite).filter(v => v > 0);
+    const prevailingValues = prices.map(v => Number(v.pr)).filter(Number.isFinite).filter(v => v > 0);
+    const avgPrevailing = prevailingValues.reduce((a,b) => a + b, 0) / prevailingValues.length;
+
+    itemRows.push({
+      ...item,
+      low: lowValues.length ? Math.min(...lowValues) : null,
+      high: highValues.length ? Math.max(...highValues) : null,
+      prevailing: avgPrevailing,
+      count: prices.length
+    });
+  });
+
+  const avg = itemRows.length
+    ? itemRows.reduce((sum, row) => sum + row.prevailing, 0) / itemRows.length
+    : null;
+  const series = buildMarketTrendSeries(usable);
+  const previousAvg = previousDate
+    ? series.find(point => point.date === previousDate)?.average || null
+    : null;
+  const trendChange = avg && previousAvg ? avg - previousAvg : null;
+  const trendPercent = trendChange !== null && previousAvg ? (trendChange / previousAvg) * 100 : null;
+
+  itemRows.sort((a,b) => b.count - a.count || b.prevailing - a.prevailing);
+
+  return {
+    latestDate,
+    previousDate,
+    marketCount: markets.length,
+    markets,
+    commodityCount: itemRows.length,
+    averagePrevailing: avg,
+    previousAverage: previousAvg,
+    trendChange,
+    trendPercent,
+    series,
+    rows: itemRows.slice(0, 8)
+  };
+}
+
+function buildMarketTrendSeries(records){
+  const byDate = {};
+
+  records.forEach(record => {
+    if(!record.date || !record.data) return;
+    PRICE_MONITOR_ITEMS.forEach(item => {
+      const value = Number(record.data?.[item.id]?.pr);
+      if(!Number.isFinite(value) || value <= 0) return;
+      if(!byDate[record.date]) byDate[record.date] = [];
+      byDate[record.date].push(value);
+    });
+  });
+
+  return Object.keys(byDate).sort().slice(-8).map(date => {
+    const values = byDate[date];
+    return {
+      date,
+      average: values.reduce((sum, value) => sum + value, 0) / values.length
+    };
+  });
+}
+
+function trendLabel(summary){
+  if(!summary || summary.trendChange === null || summary.trendPercent === null) return '—';
+  const absChange = Math.abs(summary.trendChange);
+  const absPercent = Math.abs(summary.trendPercent);
+  if(absChange < 0.01) return 'Same';
+  const arrow = summary.trendChange > 0 ? '▲' : '▼';
+  return `${arrow} ₱${absChange.toFixed(2)} (${absPercent.toFixed(1)}%)`;
+}
+
+function trendClass(summary){
+  if(!summary || summary.trendChange === null || Math.abs(summary.trendChange) < 0.01) return 'trend-same';
+  return summary.trendChange > 0 ? 'trend-up' : 'trend-down';
+}
+
+function renderPriceTrendChart(series){
+  const target = document.getElementById('market-price-trend-chart');
+  if(!target) return;
+  if(!series || series.length < 2){
+    target.innerHTML = 'Need at least two monitoring dates to show a trend.';
+    return;
+  }
+
+  const width = 620;
+  const height = 130;
+  const padX = 28;
+  const padY = 16;
+  const values = series.map(point => point.average);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = Math.max(max - min, 1);
+  const plotW = width - padX * 2;
+  const plotH = height - padY * 2 - 18;
+  const step = plotW / Math.max(series.length - 1, 1);
+  const barW = Math.min(34, plotW / series.length * 0.55);
+
+  const yFor = value => padY + (max - value) / span * plotH;
+  const xFor = index => padX + index * step;
+  const points = series.map((point, index) => `${xFor(index)},${yFor(point.average)}`).join(' ');
+  const bars = series.map((point, index) => {
+    const x = xFor(index) - barW / 2;
+    const y = yFor(point.average);
+    const h = padY + plotH - y;
+    return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(h, 2).toFixed(1)}" rx="4" fill="var(--green-mid)" opacity="0.45"></rect>`;
+  }).join('');
+  const dots = series.map((point, index) => {
+    const x = xFor(index);
+    const y = yFor(point.average);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="var(--gold)"><title>${formatDate(point.date)}: ₱${point.average.toFixed(2)}</title></circle>`;
+  }).join('');
+  const labels = series.map((point, index) => {
+    const x = xFor(index);
+    return `<text x="${x.toFixed(1)}" y="${height - 3}" text-anchor="middle" font-size="10" fill="#5a6357">${formatDate(point.date).replace(/, 2026|, 2025/g,'')}</text>`;
+  }).join('');
+
+  target.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Average prevailing price trend chart" style="width:100%;height:100%">
+      <line x1="${padX}" y1="${padY + plotH}" x2="${width - padX}" y2="${padY + plotH}" stroke="#d4e5d8" stroke-width="1"></line>
+      ${bars}
+      <polyline points="${points}" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      ${dots}
+      ${labels}
+    </svg>`;
+}
+
+async function renderMarketMonitorSummary(){
+  const tbody = document.getElementById('market-live-tbody');
+  if(!tbody) return;
+
+  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">Loading market monitoring data...</td></tr>';
+  const records = await loadMarketRecords();
+  MARKET_SUMMARY = summarizeMarketRecords(records);
+
+  if(!MARKET_SUMMARY){
+    document.getElementById('market-live-date').textContent = '—';
+    document.getElementById('market-live-markets').textContent = '—';
+    document.getElementById('market-live-commodities').textContent = '—';
+    document.getElementById('market-live-avg').innerHTML = '—';
+    document.getElementById('market-live-trend').innerHTML = '—';
+    renderPriceTrendChart([]);
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">No market monitoring records available.</td></tr>';
+    return;
+  }
+
+  document.getElementById('market-live-date').textContent = marketDateLabel(MARKET_SUMMARY.latestDate);
+  document.getElementById('market-live-markets').textContent = MARKET_SUMMARY.marketCount;
+  document.getElementById('market-live-commodities').textContent = MARKET_SUMMARY.commodityCount;
+  document.getElementById('market-live-avg').innerHTML = money(MARKET_SUMMARY.averagePrevailing);
+  const trendEl = document.getElementById('market-live-trend');
+  if(trendEl){
+    trendEl.textContent = trendLabel(MARKET_SUMMARY);
+    trendEl.className = trendClass(MARKET_SUMMARY);
+  }
+  renderPriceTrendChart(MARKET_SUMMARY.series);
+
+  setText('dash-markets', MARKET_SUMMARY.marketCount || '—');
+  setText('dash-price', MARKET_SUMMARY.averagePrevailing ? '₱' + MARKET_SUMMARY.averagePrevailing.toFixed(2) : '—');
+  const marketTrend = document.getElementById('dash-mkt-trend');
+  if(marketTrend) marketTrend.textContent = 'Latest monitoring: ' + marketDateLabel(MARKET_SUMMARY.latestDate);
+  const priceTrend = document.getElementById('dash-price-trend');
+  if(priceTrend){
+    priceTrend.textContent = trendLabel(MARKET_SUMMARY);
+    priceTrend.className = 'm-trend ' + (MARKET_SUMMARY.trendChange > 0 ? 'up' : MARKET_SUMMARY.trendChange < 0 ? 'down' : '');
+  }
+
+  tbody.innerHTML = MARKET_SUMMARY.rows.map(row => `
+    <tr>
+      <td>${esc(row.name)}</td>
+      <td>${esc(row.unit)}</td>
+      <td>${money(row.low)}</td>
+      <td>${money(row.high)}</td>
+      <td>${money(row.prevailing)}</td>
+    </tr>
+  `).join('');
+}
+
 function renderPublicRISE(){
   const r = getData('rise');
   setText('pub-rise-intro', r.intro);
@@ -1557,10 +2013,11 @@ function renderMapDisplay(cat){
 // ============================================================
 // INIT
 // ============================================================
-(function init(){
+(async function init(){
+  mergeRemoteData(null);
   showView('login');
-  // Pre-render public data so it's ready when user visits
-  // (runs silently in background)
+  await loadRemoteData({silent:true});
+  renderPublic();
 })();
 </script>
 </body>
