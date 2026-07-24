@@ -119,7 +119,7 @@ input,textarea,select{font-family:'DM Sans',sans-serif}
 .forms-dropdown{position:relative;display:inline-flex;align-items:center}
 .forms-dropdown-btn{background:none;border:none;color:var(--muted);font-size:12.5px;font-weight:500;padding:6px 10px;border-radius:5px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;transition:all 0.2s}
 .forms-dropdown-btn:hover,.forms-dropdown.open .forms-dropdown-btn{color:var(--green);background:var(--green-light)}
-.forms-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 12px);width:min(340px,calc(100vw - 2rem));max-height:300px;overflow-y:auto;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:0 14px 35px rgba(0,0,0,0.14);z-index:500}
+.forms-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 12px);width:min(430px,calc(100vw - 24px));max-height:300px;overflow-y:auto;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:0 14px 35px rgba(0,0,0,0.14);z-index:500}
 .forms-dropdown.open .forms-dropdown-menu{display:flex;flex-direction:column;gap:6px}
 .form-download-link{background:var(--green-pale);border:1px solid var(--border);border-radius:9px;padding:9px 11px;font-size:12.5px;font-weight:600;color:var(--green-dark);display:flex;align-items:center;gap:8px;white-space:normal;line-height:1.35;transition:all 0.2s}
 .form-download-link:hover{background:var(--green-light);border-color:var(--green-mid);color:var(--green-dark);transform:translateX(2px)}
@@ -2935,14 +2935,30 @@ function renderPublicFormsRibbon(){
 }
 
 function setMobileDropdownPosition(button){
-  if(!button) return;
-  if(window.matchMedia('(max-width: 600px)').matches){
-    const rect = button.getBoundingClientRect();
-    const top = Math.min(rect.bottom + 8, window.innerHeight - 120);
-    document.documentElement.style.setProperty('--mobile-dropdown-top', top + 'px');
-  }
-}
 
+    if(!button) return;
+
+    if(window.innerWidth <= 900){
+
+        const rect = button.getBoundingClientRect();
+
+        document.documentElement.style.setProperty(
+            '--mobile-dropdown-top',
+            (rect.bottom + 8) + 'px'
+        );
+
+    }
+
+}
+document.querySelectorAll(".forms-dropdown-menu a").forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        closeHeaderDropdowns();
+
+    });
+
+});
 function closeHeaderDropdowns(exceptId){
   document.querySelectorAll('.forms-dropdown.open').forEach(el => {
     if(!exceptId || el.id !== exceptId){
