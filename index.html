@@ -379,9 +379,35 @@ footer{background:var(--green-dark);padding:1.5rem 2rem;display:flex;align-items
   .bp-live-frame-wrap{height:620px;border-radius:10px}
   .hero-services-title{font-size:28px}
   .frontline-list-wrap{padding:0.7rem 0 0}
-  .forms-dropdown{position:static}
-  .forms-dropdown-menu{position:fixed;right:1rem;left:1rem;top:calc(var(--mobile-dropdown-top, 120px));width:auto;max-height:65vh;z-index:2500;box-shadow:0 16px 40px rgba(0,0,0,0.22)}
-  .forms-dropdown.open .forms-dropdown-menu{display:flex}
+.forms-dropdown{
+    position:static;
+}
+
+.forms-dropdown-menu{
+    position:fixed;
+    left:12px;
+    right:12px;
+    top:calc(var(--mobile-dropdown-top, 70px));
+    max-height:70vh;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    display:none;
+
+    background:#fff;
+    border-radius:12px;
+    border:1px solid #ddd;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+
+    z-index:99999;
+}
+
+.forms-dropdown.open .forms-dropdown-menu{
+    display:flex;
+    flex-direction:column;
+}
   .prices-table-wrap{max-width:100%;overflow:auto;border:1px solid var(--border);background:#fff}
   .prices-table,.admin-table{font-size:12.5px;min-width:760px}
   .sd-detail-table,.sd-admin-table{min-width:1120px}
